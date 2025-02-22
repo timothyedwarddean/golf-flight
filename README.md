@@ -1,70 +1,123 @@
-# Getting Started with Create React App
+# Golf Shot Visualizer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+The **Golf Shot Visualizer** is a React-based 3D simulation tool designed to model golf ball trajectories based on **club face angle, club path angle, and swing speed**. Built using **React Three Fiber**, this project applies real-world physics principles, including **gravity and the Magnus effect**, to provide realistic shot visualizations.
 
-In the project directory, you can run:
+This project is hosted at [golf-flight.com](https://golf-flight.com).
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Real-time golf shot simulation** with 3D visualization.
+- **User-controlled input parameters**:
+  - Club Face Angle (°)
+  - Club Path Angle (°)
+  - Swing Speed (mph)
+  - Launch Angle (°)
+  - Pin Distance (yards)
+- **Physics-based shot classification**, including fades, draws, hooks, and slices.
+- **Magnus effect implementation** to simulate real-world ball spin and curvature.
+- **3D rendering using React Three Fiber** with realistic ground, pin, and ball flight path.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation & Setup
 
-### `npm test`
+### Prerequisites
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Ensure you have the following installed:
 
-### `npm run build`
+- **Node.js** (>=14.0.0)
+- **npm** (or yarn)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Installation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/yourusername/golf-shot-visualizer.git
+   cd golf-shot-visualizer
+   ```
+2. Install dependencies:
+   ```sh
+   npm install
+   ```
+   *or*
+   ```sh
+   yarn install
+   ```
+3. Start the development server:
+   ```sh
+   npm start
+   ```
+   The application will be available at `http://localhost:3000/`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+1. Adjust the shot parameters using the input fields.
+2. Click **Hit Shot** to visualize the trajectory.
+3. Observe the shot classification and distance results.
+4. Modify parameters and iterate to analyze different shot outcomes.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Code Breakdown
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Key Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **GolfShotVisualizer.js** – Main component handling shot calculation and visualization.
+- **Ball.js** – Renders the moving golf ball with real-time physics updates.
+- **Tracer.js** – Draws the shot trajectory as a red line in the 3D space.
+- **PathFaceArrows.js** – Displays directional arrows for club path and face angles.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### Physics Calculations
 
-## Learn More
+- **Magnus Effect** is applied using a cross-product function to simulate side spin effects:
+  ```js
+  function cross(ax, ay, az, bx, by, bz) {
+    return [
+      ay * bz - az * by,
+      az * bx - ax * bz,
+      ax * by - ay * bx,
+    ];
+  }
+  ```
+- **Shot Classification** is determined based on face angle, path angle, and side spin RPM:
+  ```js
+  function getShotCategory(faceDeg, pathDeg, sideSpinRpm) {
+    const diff = pathDeg - faceDeg;
+    return diff > 0.5 ? "Draw" : diff < -0.5 ? "Fade" : "Straight";
+  }
+  ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Known Issues
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- **Mobile UI Scaling**: Some elements may not display properly on smaller screens.
+- **Shot Variability**: Additional refinements could improve real-world accuracy.
 
-### Code Splitting
+## Future Enhancements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Add **wind effects** to further simulate real-world conditions.
+- Implement **turf interaction** to model bounce and roll after landing.
+- Introduce **club selection** for different loft and spin characteristics.
+- Improve mobile responsiveness.
 
-### Analyzing the Bundle Size
+## Contributing
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Contributions are welcome! To contribute:
 
-### Making a Progressive Web App
+1. Fork the repository.
+2. Create a new feature branch: `git checkout -b feature-name`.
+3. Commit changes: `git commit -m "Add feature"`.
+4. Push to your branch: `git push origin feature-name`.
+5. Open a **pull request**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## License
 
-### Advanced Configuration
+This project is licensed under the **MIT License**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Contact
 
-### Deployment
+For questions, suggestions, or bug reports, reach out via:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- **GitHub Issues**: Open an issue in this repository.
+- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
+- **Blog**: Read more at [itwasdns.io](https://itwasdns.io)
 
-### `npm run build` fails to minify
+Happy coding and keep working on that perfect draw! 🏌️‍♂️
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
