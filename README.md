@@ -116,7 +116,7 @@ This project is licensed under the **MIT License**.
 For questions, suggestions, or bug reports, reach out via:
 
 - **GitHub Issues**: Open an issue in this repository.
-- **LinkedIn**: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
+- **LinkedIn**: [Your LinkedIn Profile](https://www.linkedin.com/in/tim-dean-969a98a1/)
 - **Blog**: Read more at [itwasdns.io](https://itwasdns.io)
 
 Happy coding and keep working on that perfect draw! 🏌️‍♂️
